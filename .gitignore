@@ -131,6 +131,7 @@ dmypy.json
 
 # Pycharm
 .idea
+
 # Output files
 exercises/figs
 figs/

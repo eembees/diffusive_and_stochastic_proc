@@ -109,7 +109,7 @@ def run_b(args):
     exp_average_1 = np.mean(X1, axis=1)
     exp_average_2 = np.mean(X2, axis=1)
 
-    fig, ax = plt.subplots(ncols=2, nrows=2, sharex=True)
+    fig, ax = plt.subplots(ncols=2, nrows=2, sharex=True, figsize=(8, 5))
     #
     ax[0, 0].plot(ts_1, X1[:, :10], alpha=0.6, lw=1)
     ax[0, 0].set_title("Positions with dt = " + f"{dt1:.4f}")
@@ -196,7 +196,18 @@ def run_c(args):
             ],
             values=[
                 f"{val:.4f}"
-                for val in (D, k, eta, max_var, dt1, dt2, var1, std1, var2, std2)
+                for val in (
+                    D,
+                    k,
+                    eta,
+                    max_var,
+                    dt1,
+                    dt2,
+                    var1,
+                    std1,
+                    var2,
+                    std2,
+                )
             ],
             extra_spacing=4,
         )
@@ -237,7 +248,7 @@ def run_c(args):
     analytical_variance = variance_harmonic(ts_1, D, eta, k)
     analytical_variance_str = r"$D\frac{\eta}{k}\left(1-\exp \left( \frac{-2kt}{\eta} \right) \right)$"
 
-    fig, ax = plt.subplots(ncols=2, nrows=2, sharex=True)
+    fig, ax = plt.subplots(ncols=2, nrows=2, sharex=True, figsize=(8, 5))
 
     ax[0, 0].plot(ts_1, X1[:, :10], alpha=0.6, lw=1)
     ax[0, 0].set_title("Positions with dt = " + f"{dt1:.4f}")
