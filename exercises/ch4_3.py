@@ -10,7 +10,7 @@ rcParams["font.family"] = "monospace"
 from matplotlib import pyplot as plt
 from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
 import argparse
-
+# plt.xkcd()
 # set std params here because lazy
 color_xa = "xkcd:pastel orange"
 color_xb = "xkcd:pastel pink"
@@ -89,7 +89,7 @@ def run(args):
 
     first_passage_times = first_passage_idx * dt
 
-    fig = plt.Figure(figsize=(8, 5))
+    fig = plt.Figure(figsize=(10, 6))
     outer_grid = GridSpec(nrows=1, ncols=2, figure=fig)
     inner_rgt = GridSpecFromSubplotSpec(
         ncols=1, nrows=2, subplot_spec=outer_grid[1]
@@ -116,7 +116,7 @@ def run(args):
 
     ax_pot.legend()
 
-    n_trajs_to_plot = 100
+    n_trajs_to_plot = 50
     counter = 0
     idx = 0
     trajs_to_plot: List[Tuple[np.ndarray, np.ndarray]] = []
@@ -151,8 +151,8 @@ def run(args):
     ax_hist.hist(
         first_passage_times[first_passage_times > 0],
         histtype="step",
-        bins=25,
-        label=fr"$r=\frac{{1}}{{\mu}}={1 / mean_fp:.3f}$",
+        bins=max(25, int(np.sqrt(len(first_passage_times[first_passage_times > 0])))),
+        label=fr"$r=\frac{{1}}{{\mu}}={1 / mean_fp:.4f}$",
         density=True,
     )
     ax_hist.axvline(
@@ -167,7 +167,7 @@ def run(args):
     ax_hist.set_title(
         f"First Passage Times, {sum(first_passage_times > 0)}/{n_samples}"
     )
-    ax_hist.legend(loc="lower right")
+    ax_hist.legend(loc="upper right")
 
     basename = args["out_name"] + "_simulation." + args["filetype"]
     fig.savefig(args["outdir"] / basename)
@@ -205,8 +205,6 @@ def parse_arguments() -> Dict[str, Union[int, float, str, Path]]:
     return argdict
 
 
-def main(args: Dict[str, Union[int, float, str, Path]]):
-    pass
 
 
 if __name__ == "__main__":
