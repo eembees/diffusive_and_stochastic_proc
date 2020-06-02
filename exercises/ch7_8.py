@@ -55,8 +55,8 @@ def run(args: Dict):
     curr_time = 0
     curr_n_mrna = 0
 
-    storage_mrna = []
-    storage_time = []
+    storage_mrna = [0]
+    storage_time = [0]
     storage_steps = []
 
     while curr_time < max_time:
@@ -93,6 +93,8 @@ def run(args: Dict):
         storage_time.append(curr_time)
         storage_steps.append(tau)
 
+    storage_mrna.pop()
+    storage_time.pop()
 
     df = pd.DataFrame({"Time": storage_time, "N_MRNA": storage_mrna, "Steps":storage_steps})
     print(df.tail())
